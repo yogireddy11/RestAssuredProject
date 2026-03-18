@@ -10,4 +10,6 @@ public class BaseTest {
         RestAssured.baseURI = "https://dummyjson.com";
     }
 
+
+
 }
