@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="TestSuite">
-    <test name="DummyJson">
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="TestSuite" parallel="classes" thread-count="1">
+    <test name="DummyJsonTests">
         <classes>
-            <class name="apiTest.DummyJson" />
+            <class name="apiTest.DummyJsonCarts" />
+            <class name="apiTest.DummyJsonAuth"/>
         </classes>
     </test>
 </suite>

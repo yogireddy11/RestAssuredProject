@@ -1,50 +1,57 @@
 package endpoints;
 
 import io.restassured.response.Response;
+import reports.CustomLoggingFilter;
 
 import static io.restassured.RestAssured.*;
 
 public class CartAPI {
-    public static Response getAllCarts() {
+    public Response getAllCarts() {
         return given()
                 .header("Content-Type", "application/json")
+                .filter(new CustomLoggingFilter())
                 .when()
                 .get("/carts");
     }
 
-    public static Response getCartById(int id) {
+    public Response getCartById(int id) {
         return given()
                 .header("Content-Type", "application/json")
+                .filter(new CustomLoggingFilter())
                 .when()
                 .get("/carts/" + id);
     }
 
-    public static Response getCartByUser(int userId) {
+    public Response getCartByUser(int userId) {
         return given()
                 .header("Content-Type", "application/json")
+                .filter(new CustomLoggingFilter())
                 .when()
                 .get("/carts/user/" + userId);
     }
 
-    public static Response addCart(Object body) {
+    public Response addCart(Object body) {
         return given()
                 .header("Content-Type", "application/json")
+                .filter(new CustomLoggingFilter())
                 .body(body)
                 .when()
                 .post("/carts/add");
     }
 
-    public static Response updateCart(int id, Object body) {
+    public Response updateCart(int id, Object body) {
         return given()
                 .header("Content-Type", "application/json")
+                .filter(new CustomLoggingFilter())
                 .body(body)
                 .when()
                 .put("/carts/" + id);
     }
 
-    public static Response deleteCart(int id) {
+    public Response deleteCart(int id) {
         return given()
                 .header("Content-Type", "application/json")
+                .filter(new CustomLoggingFilter())
                 .when()
                 .delete("/carts/" + id);
     }

@@ -4,34 +4,34 @@ import base.BaseTest;
 import endpoints.CartAPI;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
+import retry.RetryAnalyzer;
 import validations.ResponseValidations;
 
-public class DummyJson extends BaseTest {
+public class DummyJsonCarts extends BaseTest {
+    Response res;
+    CartAPI cartAPI = new CartAPI();
 
-    @Test
+
+    @Test(priority = 1,retryAnalyzer = RetryAnalyzer.class)
     public void getAllCartsTest() {
 
-        Response res = CartAPI.getAllCarts();
-
-        ResponseValidations.validateStatusCode(res, 200);
-        ResponseValidations.validateResponseTime(res, 1500);
-        ResponseValidations.validateNotEmpty(res, "carts");
-
+        res = cartAPI.getAllCarts();
         res.then().log().all();
+        ResponseValidations.validateStatusCode(res, 200);
+        ResponseValidations.validateResponseTime(res, 2000);
+        ResponseValidations.validateNotEmpty(res, "carts");
     }
 
-    @Test
+    @Test(priority = 2)
     public void getCartByIdTest() {
 
-        Response res = CartAPI.getCartById(1);
-
+        res = cartAPI.getCartById(1);
+        res.then().log().all();
         ResponseValidations.validateStatusCode(res, 200);
         ResponseValidations.validateResponseTime(res, 1500);
-
-        res.then().log().all();
     }
 
-    @Test
+    @Test(retryAnalyzer = RetryAnalyzer.class, priority = 3)
     public void addCartTest() {
         String body = """ 
                 { 
@@ -43,15 +43,13 @@ public class DummyJson extends BaseTest {
                       ]
                 } 
                 """;
-        Response res = CartAPI.addCart(body);
-
+        res = cartAPI.addCart(body);
+        res.then().log().all();
         ResponseValidations.validateStatusCode(res, 201);
         ResponseValidations.validateResponseTime(res, 2000);
-
-        res.then().log().all();
     }
 
-    @Test
+    @Test(priority = 4)
     public void updateCartTest() {
 
         String body = """
@@ -61,22 +59,27 @@ public class DummyJson extends BaseTest {
                 }
                 """;
 
-        Response res = CartAPI.updateCart(1, body);
-
+        res = cartAPI.updateCart(1, body);
+        res.then().log().all();
         ResponseValidations.validateStatusCode(res, 200);
         ResponseValidations.validateResponseTime(res, 2000);
-
-        res.then().log().all();
     }
 
-    @Test
+    @Test(priority = 5)
     public void deleteCartTest() {
 
-        Response res = CartAPI.deleteCart(1);
-
+        res = cartAPI.deleteCart(1);
+        res.then().log().all();
         ResponseValidations.validateStatusCode(res, 200);
         ResponseValidations.validateResponseTime(res, 1500);
+    }
 
+    @Test(priority = 6)
+    public void getCartByUserTest() {
+
+        res = cartAPI.getCartByUser(1);
         res.then().log().all();
+        ResponseValidations.validateStatusCode(res, 200);
+        ResponseValidations.validateResponseTime(res, 1500);
     }
 }
