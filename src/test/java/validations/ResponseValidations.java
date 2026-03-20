@@ -16,4 +16,9 @@ public class ResponseValidations {
     public static void validateNotEmpty(Response res, String key) {
         res.then().body(key, not(empty()));
     }
+
+    public static void responseCodeAnyOneOf(Response res, int code1,int code2){
+        res.then().statusCode(anyOf(is(code1),is(code2)));
+
+    }
 }

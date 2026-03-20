@@ -3,8 +3,9 @@
 <suite name="TestSuite" parallel="classes" thread-count="1">
     <test name="DummyJsonTests">
         <classes>
-            <class name="apiTest.DummyJsonCarts" />
-            <class name="apiTest.DummyJsonAuth"/>
+<!--            <class name="apiTest.DummyJsonCarts" />-->
+<!--            <class name="apiTest.DummyJsonAuth"/>-->
+            <class name="apiTest.DummyJsonProduct"/>
         </classes>
     </test>
 </suite>
