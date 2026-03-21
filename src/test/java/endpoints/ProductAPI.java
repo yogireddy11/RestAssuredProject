@@ -82,10 +82,10 @@ public class ProductAPI {
                 .body(body)
                 .when().put("/products/1");
     }
-    public Response deleteProduct(){
+    public Response deleteProduct(int id){
         return given().header("Content-Type", "application/json")
                 .filter(new CustomLoggingFilter())
-                .when().delete("/products/1");
+                .when().delete("/products/"+id);
     }
 
 
