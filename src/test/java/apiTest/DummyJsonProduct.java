@@ -125,7 +125,16 @@ public class DummyJsonProduct extends BaseTest {
 
     @Test(priority = 11)
     public void getDeleteProduct(){
-        res = productAPI.deleteProduct();
+        res = productAPI.deleteProduct(2);
+        res.then().log().all();
+        ResponseValidations.validateResponseTime(res, 2000);
+        ResponseValidations.validateStatusCode(res,200);
+    }
+
+
+    @Test(priority = 11)
+    public void getDeleteProduct2(){
+        res = productAPI.deleteProduct(3);
         res.then().log().all();
         ResponseValidations.validateResponseTime(res, 2000);
         ResponseValidations.validateStatusCode(res,200);
